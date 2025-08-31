@@ -120,6 +120,7 @@ public class Main {
         //Quantidade de salários mínimos
         for (Funcionario funcionario : funcionarios) {
             BigDecimal quantSalarioMinimo = funcionario.getSalario().divide(BigDecimal.valueOf(1212.00), 0, RoundingMode.DOWN);
+            System.out.println(funcionario);
             System.out.println(funcionario.getNome() + " recebe " + quantSalarioMinimo + " salários mínimos");
             System.out.println(" ");
         }
