@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -113,7 +114,16 @@ public class Main {
         System.out.print("Soma dos salários: ");
         System.out.println(df.format(somaSalarios));
 
+        System.out.println(" ");
+        System.out.println("###########################################################################");
+        System.out.println(" ");
 
+        //Quantidade de salários mínimos
+        for (Funcionario funcionario : funcionarios) {
+            BigDecimal quantSalarioMinimo = funcionario.getSalario().divide(BigDecimal.valueOf(1212.00), 0, RoundingMode.DOWN);
+            System.out.println(funcionario.getNome() + " recebe " + quantSalarioMinimo + " salários mínimos");
+            System.out.println(" ");
+        }
     }
 
 
