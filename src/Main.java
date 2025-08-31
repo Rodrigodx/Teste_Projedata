@@ -1,9 +1,8 @@
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Month;
+import java.time.Period;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -55,8 +54,10 @@ public class Main {
             funcionario.setSalario(novoSalario);
         }
 
+        //Map de funcionários por Função
         Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
 
+        //Imprimir por função
         funcionariosPorFuncao.forEach((funcao, listaDeFuncionarios) -> {
             System.out.println("Função: " + funcao);
             listaDeFuncionarios.forEach(funcionario -> System.out.println(funcionario));
@@ -64,5 +65,46 @@ public class Main {
         });
 
 
+        System.out.println("###########################################################################");
+        System.out.println(" ");
+
+        //Imprimir funcionarios nascido nos meses 10 e 12
+        funcionarios.stream().filter(f -> {
+            Month mes = f.getDataNascimento().getMonth();
+            return mes == Month.OCTOBER || mes == Month.DECEMBER;
+        }).forEach(f -> {
+            System.out.println(f);
+        });
+
+
+        System.out.println(" ");
+        System.out.println("###########################################################################");
+        System.out.println(" ");
+
+        //Pega o funcionário mais velho
+        Optional<Funcionario> funcionarioMaisVelho = funcionarios.stream()
+                .min(Comparator.comparing(Funcionario::getDataNascimento));
+
+        //Faz a impressão do funcinários mais velho
+        if(funcionarioMaisVelho.isPresent()) {
+            Funcionario maisVelho = funcionarioMaisVelho.get();
+            String nome = maisVelho.getNome();
+            int idade = Period.between(maisVelho.getDataNascimento(), LocalDate.now()).getYears();
+            System.out.println("Nome: " + nome);
+            System.out.println("Idade: " + idade);
+        }
+
+        System.out.println(" ");
+        System.out.println("###########################################################################");
+        System.out.println(" ");
+
+        funcionarios.stream().sorted(Comparator.comparing(Funcionario::getNome))
+                .forEach(funcionario -> System.out.println(funcionario));
+
+
+
+
     }
+
+
 }
