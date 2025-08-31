@@ -50,9 +50,8 @@ public class Main {
 
         //Reajuste de salário em 10%
         for (Funcionario funcionario : funcionarios) {
-            double salario = Double.parseDouble(String.valueOf(funcionario.getSalario()));
-            double reajusteSalario = (salario * 10) / 100;
-            BigDecimal novoSalario = BigDecimal.valueOf(salario + reajusteSalario);
+            BigDecimal reajuste = funcionario.getSalario().multiply(new BigDecimal("0.10"));
+            BigDecimal novoSalario = funcionario.getSalario().add(reajuste);
             funcionario.setSalario(novoSalario);
         }
 
