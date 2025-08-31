@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
@@ -98,10 +99,19 @@ public class Main {
         System.out.println("###########################################################################");
         System.out.println(" ");
 
+        //Funcionários por ordem alfabética
         funcionarios.stream().sorted(Comparator.comparing(Funcionario::getNome))
                 .forEach(funcionario -> System.out.println(funcionario));
 
+        System.out.println(" ");
+        System.out.println("###########################################################################");
+        System.out.println(" ");
 
+        //Soma dos salários
+        BigDecimal somaSalarios = funcionarios.stream().map(funcionario -> funcionario.getSalario()).reduce(BigDecimal.valueOf(0), BigDecimal::add);
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        System.out.print("Soma dos salários: ");
+        System.out.println(df.format(somaSalarios));
 
 
     }
